@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <script>
+        fetch("https://fakestoreapi.com/products")
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+
+            var row = document.getElementById("data");
+            var data = '';
+
+            for(var i in json)
+            {
+                data += `
+                        <tr>
+                            <td>${json[i].id}</td>
+                            <td><img src="${json[i].image}" style="height: 150px; width: 150px"></td>
+                            <td>${json[i].title}</td>
+                            <td>${json[i].price}</td>
+                            <td><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${json[i].description}"></td>
+                            <td><a class="btn btn-dark" href="prodcutdetails.html?id=${json[i].id}">Details</a></td>
+                        </tr>
+                
+                `
+            }
+
+            row.innerHTML = data;
+        })
+    </script>
+</head>
+<body>
+    
+
+    <div class="container-fluid my-5">
+        <div class="row">
+            <div class="col-11 mx-auto">
+                <div class="table-responsive">
+                    <table class="table-hover table  text-center">
+                        <thead>
+                            <tr>
+                                <th>S No</th>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Price</th>
+                                <th>QR CODe</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
